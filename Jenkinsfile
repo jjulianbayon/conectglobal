@@ -7,5 +7,17 @@ pipeline {
                 sh 'ls -l' 
             }
         }
+	stage ('Test'){
+	    steps {
+		echo 'Testing'
+           }
+	}
+	stage ('Deploy'){
+	   steps {
+		echo 'Desplegando'
+           }
+
+	}
+	
     }
 }
