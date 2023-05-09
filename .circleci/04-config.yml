@@ -1,0 +1,26 @@
+version: 2.1
+
+jobs:
+  hola:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run: echo hola
+  adios:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run : echo adios
+
+      
+workflows:
+  workflow1:
+    jobs:
+      - hola
+      - adios
+  workflow2:
+    jobs:
+      - hola
+      - adios:
+          requires:
+              - hola

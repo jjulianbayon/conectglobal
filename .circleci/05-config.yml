@@ -1,0 +1,49 @@
+version: 2.1
+
+jobs:
+  hola:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run: echo hola
+  adios:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run : echo adios
+
+      
+workflows:
+  workflow1:
+    jobs:
+      - hola
+      - adios
+  workflow2:
+    jobs:
+      - hola
+      - adios:
+          requires:
+              - hola
+  workflow3:
+    jobs:
+    - hola
+    - approval:
+        type: approval
+        requires:
+          - saluda
+    - adios:
+        requires:
+          - approval
+  nightly:
+    triggers:
+      - schedule:
+            cron: "40 14 * * *"
+            filters:
+              branches:
+                only:
+                  main
+    jobs:
+      - hola
+      - adios:
+          requires:
+              - hola 
